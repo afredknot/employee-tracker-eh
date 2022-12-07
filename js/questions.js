@@ -5,7 +5,7 @@ class Menu {
       name: "choice",
       message: "What would you like to do?",
       choices:[
-        "view all employees", 
+        "View all employees", 
         "Add Employee",
         "Update Employee Role",
         "View all Roles",
@@ -106,18 +106,6 @@ return [
     message: `Which department would you like to ${option}?`,
     choices: department
 }
-]
-}
-deleteConfirm(depToDelete) {
-return [
-{
-    type: "input",
-    name: "confirm",
-    message: `Delete ${depToDelete} department? All roles and employees inside will be deleted too. (y/n)`,
-    validate: function (input) {
-        return !!input || "Please make a choice!";
-    }
-},
 ]
 }
 

@@ -5,17 +5,15 @@ const consoleTable = require('console.table');
 const sequelize = require('./config/connection')
 const question = require('./js/questions')
 const {db, query} = require('./js/querys')
-// const app = express()
-const port = process.env.PORT || 3001
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+
+
 
 //use figlet to print 'Employee Tracker' logo
 const printTitle = async () => {
     const figletPromise = util.promisify(figlet.text)
     const data = await figletPromise('Employee Tracker Eh', {
-        font: 'speed',
+        font: 'weird',
         horizontalLayout: 'default',
         verticalLayout: 'default',
         width: 100,
@@ -25,12 +23,13 @@ const printTitle = async () => {
 }
 
 const choices = async (result) => {
+
     switch (result.choice) {
-        case 'View all departments':
+        case 'View All Departments':
             await query.viewAllDepartments();
             menu();
             break;
-        case 'View all roles':
+        case 'View all Roles':
             await query.viewAllRoles();
             menu();
             break;
@@ -38,28 +37,20 @@ const choices = async (result) => {
             await query.viewAllEmployees();
             menu();
             break;
-        case 'Add a department':
+        case 'Add Department':
             await query.addDepartment();
             menu();
             break;
-        case 'Add a role':
+        case 'Add Role':
             await query.addRole();
             menu();
             break;
-        case 'Add an employee':
+        case 'Add Employee':
             await query.addEmployee();
             menu();
             break;
-        case 'Update an employee role':
+        case 'Update Employee Role':
             await query.updateEmployee();
-            menu();
-            break;
-        case 'View budget':
-            await query.viewBudget();
-            menu();
-            break;
-        case 'Delete a department':
-            await query.deleteDep();
             menu();
             break;
         case 'Quit':
@@ -77,7 +68,7 @@ const menu = async () => {
 }
 
 const start = async () => {
-    await printTitle();
+   await printTitle();
     menu();
 }
 

@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const menu = require('./questions');
+const question = require('./questions');
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -12,6 +12,7 @@ const db = mysql.createConnection({
 
 class Query {
     async viewAllDepartments() {
+       
         try {
             const [result] = await db.promise().query('SELECT * FROM department')
             console.table(result);
@@ -52,15 +53,15 @@ class Query {
             console.error(error);
         }
     }
-    // async addDepartment() {
-    //     try {
-    //         const newDep = await inquirer.prompt(question.departmentMenu());
-    //         await db.promise().query(`INSERT INTO department(name) VALUES (?);`, newDep.name)
-    //         console.log('\x1b[32m%s\x1b[0m', `${newDep.name} department added`);
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
+    async addDepartment() {
+        try {
+            const newDep = await inquirer.prompt(question.departmentMenu());
+            await db.promise().query(`INSERT INTO department(name) VALUES (?);`, newDep.name)
+            console.log('\x1b[32m%s\x1b[0m', `${newDep.name} department added`);
+        } catch (error) {
+            console.error(error);
+        }
+    }
     //get all the departments from the bd and save all the names into an array. Then use the array as choices for inquirer. After all the prompts are answered,
     //get the id from the selected department based on the name, then insert the new role to the role table
     async addRole() {
